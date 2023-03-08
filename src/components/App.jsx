@@ -22,10 +22,14 @@ export function App () {
     setTotal(() => { return good + neutral + bad })
   }
 
+  function countPositiveFeedbackPercentage () {
+    setPosFeedback(Math.round((good / total) * 100))
+  }
+
 
   function changeStat(e) {
     
-    // this.countPositiveFeedbackPercentage();
+    
     // console.log(e.target.name);
 
     switch (e.target.name) {
@@ -47,6 +51,7 @@ export function App () {
     }
 
     countTotalFeedback();
+    countPositiveFeedbackPercentage();
   }
 
   return (
