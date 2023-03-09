@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import FeedbackOptions from "./FeedbackOptions/FeedbackOptions";
 import Notification from "./Notification/Notification";
 import Section from "./Section/Section";
@@ -13,45 +13,32 @@ export function App () {
   const [total, setTotal] = useState(0);
   const [posFeedback, setPosFeedback] = useState(0);
 
-  // console.log(setGood);
-
-  function countTotalFeedback() {
-    console.log(good);
+  useEffect(() => {
     setTotal(good + neutral + bad)
+  }, [good, neutral, bad])
 
-    setTotal(() => { return good + neutral + bad })
-  }
-
-  function countPositiveFeedbackPercentage () {
+  useEffect(() => {
     setPosFeedback(Math.round((good / total) * 100))
-  }
-
+  }, [total, good])
 
   function changeStat(e) {
-    
-    
-    // console.log(e.target.name);
-
     switch (e.target.name) {
       case "good":
         // setGood(good + 1);
-        setGood(prevState => ( prevState + 1))
+        setGood(prevState => prevState + 1);
         break;
       
       case "neutral":
-        setNeutral(neutral + 1);
+        setNeutral(prevState => prevState + 1);
         break;
       
       case "bad":
-        setBad(bad + 1);
+        setBad(prevState => prevState + 1);
         break;
       
       default:
         return;
     }
-
-    countTotalFeedback();
-    countPositiveFeedbackPercentage();
   }
 
   return (
@@ -80,7 +67,7 @@ export function App () {
 
 
 
-// export class App extends Component {
+// export class OldApp extends Component {
 //   state = {
 //     good: 0,
 //     neutral: 0,
